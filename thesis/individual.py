@@ -24,9 +24,7 @@ class Individual:
            tuple(self.points)
          
         elif mutationType == 'color':
-            self.color = tuple(
-                c + int(random.randint(-0, 256) * sigma) for c in self.color
-            )
+            self.color = tuple(int(random.randint(-0, 256) * sigma))
             
         else:
             reset = Individual(self.width,self.height)
