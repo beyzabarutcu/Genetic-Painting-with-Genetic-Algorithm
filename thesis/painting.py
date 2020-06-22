@@ -5,10 +5,11 @@ from imgcompare import image_diff
 from random import *
 
 class DrawImage:
-    def __init__(self, numPolygons, targetImage):
+    def __init__(self, numPolygons, targetImage, background_color=(0, 0, 0)):
         self.width, self.height = targetImage.size
         self.targetImage = targetImage
         self.polygons = [Individual(self.width, self.height) for _ in range(numPolygons)]
+        self.background_color = (*background_color, 255)
 
     @property
     def getImageWidth(self):
@@ -37,6 +38,8 @@ class DrawImage:
     def draw(self) -> Image:
         image = Image.new('RGBA', (self.width, self.height))
         draw = ImageDraw.Draw(image)
+        draw.polygon([(0, 0), (0, self.height), (self.width, self.height), (self.width, 0)],
+                     fill=self.background_color)
 
         for p in self.polygons:
             new_polygon = Image.new('RGBA', (self.width, self.height))
