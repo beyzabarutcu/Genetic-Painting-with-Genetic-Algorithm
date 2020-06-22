@@ -14,7 +14,7 @@ def score(x:DrawImage) -> float: # Calculate the distance to the target image
     print(".", end='', flush=True)
     return score
 
-def selection(pop, maximize=False): #Selection part
+def selection(pop, maximize=False): #selection part
 
     evaluated_individuals = tuple(filter(lambda x: x.fitness is not None, pop))
     if len(evaluated_individuals) > 0:
@@ -24,7 +24,7 @@ def selection(pop, maximize=False): #Selection part
     dad = choice(pop)
     return mom, dad
 
-def mutation(x:DrawImage, rate=0.04, sigma=1.0) -> DrawImage:
+def mutation(x:DrawImage, rate=0.04, sigma=1.0) -> DrawImage: #mutation part
 
     x.mutatePolygons(rate=rate, sigma=sigma)
     return deepcopy(x)
@@ -41,13 +41,6 @@ def final(pop, img_template="output%d.png", checkpoint_path="output") -> Populat
     img = pop.current_best.chromosome.draw()
     img.save(img_template % pop.generation, 'PNG')
     img.show()
-    """"
-    bestImage = ImageTk.PhotoImage(img)
-    bestCanvas = Canvas(window, width=size, height=size)
-    bestCanvas.create_image(size/2,size/2, image=bestImage)
-    bestCanvas.pack(side='left')
-    bestCanvas.update_idletasks()
-    """
     
     if pop.generation % 50 == 0:
         pop.checkpoint(target=checkpoint_path, method='pickle')
@@ -59,7 +52,7 @@ if __name__ == "__main__":
     
     checkpoint_path = "./geneticArt/"
     image_template = os.path.join(checkpoint_path, "drawing_%05d.png")
-    targetImage = Image.open("./img/Starry_Night_Over.jpg").convert('RGBA')
+    targetImage = Image.open("./img/unicorn.png").convert('RGBA')
     #targetImage.show()
 
     #size = targetImage.size
@@ -79,11 +72,4 @@ if __name__ == "__main__":
     
     pop = pop.evolve(evolution, n=2000)
 
-"""
-    root.Tk()
-    targetCanvas = Canvas(root, width=size, height=size)
-    targetCanvas.create_image(size/2, size/2, image=self.targetImage)
-    targetCanvas.pack(side='left')
-    root.mainloop()
-"""
     
