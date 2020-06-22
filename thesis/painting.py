@@ -18,6 +18,10 @@ class DrawImage:
     @property
     def getImageHeight(self):
         return self.height
+    
+    @property
+    def get_background_color(self):
+        return self.background_color[:3]
 
     @property
     def numPolygons(self):
@@ -53,8 +57,12 @@ class DrawImage:
 
     @staticmethod
     def mate(a, b):
-        child_a = DrawImage(0, a.targetImage)
-        child_b = DrawImage(0, a.targetImage)
+        aback = a.get_background_color
+        bback = b.get_background_color
+        new_background = (int((aback[i] + bback[i]) / 2) for i in range(3))
+        
+        child_a = DrawImage(0, a.targetImage, background_color=new_background)
+        child_b = DrawImage(0, a.targetImage, background_color=new_background)
 
         for ap, bp in zip(a.polygons, b.polygons):
             if randint(0, 1) == 0:
