@@ -60,7 +60,7 @@ if __name__ == "__main__":
     numPolygons = 150
     popSize: int = 200
     
-    pop = Population(chromosomes=[DrawImage(numPolygons, targetImage) for _ in range(popSize)],
+    pop = Population(chromosomes=[DrawImage(numPolygons, targetImage, background_color=(255, 255, 255)) for _ in range(popSize)],
                          eval_function=score, maximize=False, concurrent_workers=6)
 
     evolution = (Evolution()
