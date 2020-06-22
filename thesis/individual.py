@@ -25,7 +25,7 @@ class Individual:
          
         elif mutationType == 'color':
             self.color = tuple(
-                c + int(random.randint(-50, 50) * sigma) for c in self.color
+                c + int(random.randint(-0, 256) * sigma) for c in self.color
             )
             
         else:
